@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Şekil-->
+    <stroke android:color="#981234" android:width="3dp" ></stroke>
+
+    <!--Renk-->
+    <gradient android:startColor="#345646" android:endColor="#645362"></gradient>
+
+    <!--Kenar-->
+    <corners android:radius="10dp"></corners>
+</shape>
