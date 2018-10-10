@@ -2,6 +2,7 @@ package com.okorkut.androidui_listview;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +10,18 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     List<UserModel> userModels = null;
+
+    UserListAdapter userListAdapter;
+
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        definition();
+
+        fillList();
     }
 
 
@@ -32,5 +41,13 @@ public class MainActivity extends AppCompatActivity {
         userModels.add(userModel3);
         userModels.add(userModel4);
 
+        userListAdapter = new UserListAdapter(userModels, this);
+
+        listView.setAdapter(userListAdapter);
+
+    }
+
+    void definition(){
+        listView = findViewById(R.id.listView);
     }
 }
