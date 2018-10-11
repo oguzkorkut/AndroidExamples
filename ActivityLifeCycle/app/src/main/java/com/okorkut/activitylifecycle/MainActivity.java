@@ -1,8 +1,10 @@
 package com.okorkut.activitylifecycle;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,7 +14,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Log.i("LifeCycle", "onCreate");
+
     }
+
+    public void nextActivity(View view){
+
+        Intent intent = new Intent(this, Main2Activity.class);
+
+        startActivity(intent);
+    }
+
 
     @Override
     protected void onStart() {
@@ -23,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("LifeCycle", "onCreate");
+        Log.i("LifeCycle", "onResume");
     }
 
     @Override
