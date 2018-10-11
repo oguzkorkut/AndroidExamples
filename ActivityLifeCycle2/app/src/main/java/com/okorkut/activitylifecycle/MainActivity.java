@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        createList();
     }
 
     private void createList(){
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         models.add(model5);
         models.add(model6);
         models.add(model7);
+
+        go();
     }
 
     public void go(){
