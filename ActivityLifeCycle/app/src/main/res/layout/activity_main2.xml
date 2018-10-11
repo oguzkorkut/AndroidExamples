@@ -6,11 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".Main2Activity">
 
-    <TextView
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Activity 2"
-        android:id="@+id/text"
-        android:onClick="previousActivity"/>
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Activity 2"
+            android:id="@+id/text"
+            android:onClick="previousActivity"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameTV"
+            android:onClick="previousActivity"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/passwordTV"
+            android:onClick="previousActivity"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/genderTV"
+            android:onClick="previousActivity"/>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
