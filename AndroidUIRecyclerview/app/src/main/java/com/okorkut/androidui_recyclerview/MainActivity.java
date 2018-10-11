@@ -1,7 +1,8 @@
 package com.okorkut.androidui_recyclerview;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -12,12 +13,22 @@ public class MainActivity extends AppCompatActivity {
     List<MessageModel> messageModels;
 
     RecyclerView recyclerView;
+
+    RecyclerView.LayoutManager layoutManager;
+
+    MessageAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerView);
+
+        layoutManager = new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        fillList();
     }
 
 
@@ -38,5 +49,9 @@ public class MainActivity extends AppCompatActivity {
         messageModels.add(messageModel4);
         messageModels.add(messageModel5);
         messageModels.add(messageModel6);
+
+        adapter = new MessageAdapter(this, messageModels);
+
+        recyclerView.setAdapter(adapter);
     }
 }
