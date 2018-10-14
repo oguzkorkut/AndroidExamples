@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button signUpBtn = view.findViewById(R.id.signUp);
 
-
+        Button exitBtn = view.findViewById(R.id.exitDialog);
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +54,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       
+        exitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
 
 
 
