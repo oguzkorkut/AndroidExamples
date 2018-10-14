@@ -35,4 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
         realm.commitTransaction();
     }
+
+    public void show(){
+        realm.beginTransaction();
+
+        
+
+        realm.commitTransaction();
+    }
 }
