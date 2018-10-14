@@ -2,8 +2,10 @@ package com.okorkut.realminsert;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
     public void show(){
         realm.beginTransaction();
 
-        
+        RealmResults<Person> results = realm.where(Person.class).findAll();
+
+        for (Person person : results){
+            Log.i("Person Result",  person.toString());
+        }
 
         realm.commitTransaction();
     }
