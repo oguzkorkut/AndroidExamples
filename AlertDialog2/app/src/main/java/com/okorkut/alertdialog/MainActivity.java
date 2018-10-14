@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
         final EditText nameET = view.findViewById(R.id.name);
         final EditText passwordET = view.findViewById(R.id.password);
 
-
-
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setView(view);
@@ -60,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-
-
 
     }
 }
