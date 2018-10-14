@@ -42,4 +42,17 @@ public class Person extends RealmObject {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+
+        StringBuilder sb= new StringBuilder("");
+
+        sb.append("name:").append(name).append("\n")
+                .append("lastname:").append(lastname).append("\n")
+                .append("salary").append(salary).append("\n")
+                .append("age:").append(age);
+
+        return sb.toString();
+    }
 }
