@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void signUp(View view){
+        Log.i("RealmInsert", "signUp method begins");
 
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
@@ -95,9 +96,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         showUsers();
+        Log.i("RealmInsert", "signUp method begins");
     }
 
     public void showUsers(){
+        Log.i("RealmInsert", "showUsers method begins");
+
         realm.beginTransaction();;
 
         RealmResults<User> results = realm.where(User.class).findAll();
@@ -116,13 +120,13 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Users",usersStr.toString());
         }
 
-
         realm.commitTransaction();
 
-
+        Log.i("RealmInsert", "showUsers method complated");
     }
 
     public void insertPerson(String name, String lastname, int salary, int age){
+        Log.i("RealmInsert", "insertPerson method begins");
         realm.beginTransaction();
 
         Person person = realm.createObject(Person.class);
@@ -133,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         person.setAge(age);
 
         realm.commitTransaction();
+        Log.i("RealmInsert", "insertPerson method complated");
     }
 
     public void showPerson(){
