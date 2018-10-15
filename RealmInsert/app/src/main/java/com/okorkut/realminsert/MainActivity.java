@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -46,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
        signUp = findViewById(R.id.signUp);
 
-        listView = findViewById(R.id.listView);
+       listView = findViewById(R.id.listView);
+
+       listViewItemPosition();
     }
 
     public void generateRealm(){
@@ -105,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             userAdapter = new UserAdapter(results, getApplicationContext());
 
             listView.setAdapter(userAdapter);
-            
+
             Log.i("Users",usersStr.toString());
         }
 
@@ -138,5 +141,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         realm.commitTransaction();
+    }
+
+    public void listViewItemPosition(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("Item Position", Integer.toString(position));
+            }
+        });
     }
 }
