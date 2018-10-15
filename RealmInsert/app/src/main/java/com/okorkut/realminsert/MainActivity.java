@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -20,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     EditText nameET, usernameET, passwordET;
     RadioGroup genderRG;
     Button signUp;
+
+    UserAdapter userAdapter;
+
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
        genderRG = findViewById(R.id.genderRG);
 
        signUp = findViewById(R.id.signUp);
+
+        listView = findViewById(R.id.listView);
     }
 
     public void generateRealm(){
@@ -88,14 +95,24 @@ public class MainActivity extends AppCompatActivity {
 
         RealmResults<User> results = realm.where(User.class).findAll();
 
-        StringBuilder usersStr= new StringBuilder("");
-        for (User user: results){
-           usersStr.append(user.toString()).append("\n");
+        if (results != null && results.size() >0){
+            StringBuilder usersStr= new StringBuilder("");
+            for (User user: results){
+                usersStr.append(user.toString()).append("\n");
+
+            }
+
+            userAdapter = new UserAdapter(results, getApplicationContext());
+
+            listView.setAdapter(userAdapter);
+            
+            Log.i("Users",usersStr.toString());
         }
 
-        Log.i("Users",usersStr.toString());
 
         realm.commitTransaction();
+
+
     }
 
     public void insertPerson(String name, String lastname, int salary, int age){
