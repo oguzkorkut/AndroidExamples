@@ -59,18 +59,43 @@ public class MainActivity extends AppCompatActivity {
                 RadioButton genderRB = findViewById(id);
                 user.setGender(genderRB.getText().toString());
                 user.setPassword(passwordET.getText().toString());
+                //Log.i("User",user.toString());
+
+
             }
         }, new Realm.Transaction.OnSuccess() {
             @Override
             public void onSuccess() {
                 Toast.makeText(getApplicationContext(),"Success", Toast.LENGTH_LONG).show();
+
+                nameET.setText("");
+                usernameET.setText("");
+                passwordET.setText("");
             }
         }, new Realm.Transaction.OnError() {
             @Override
             public void onError(Throwable error) {
+                Log.e("Error", error.toString());
                 Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_LONG).show();
             }
         });
+
+        showUsers();
+    }
+
+    public void showUsers(){
+        realm.beginTransaction();;
+
+        RealmResults<User> results = realm.where(User.class).findAll();
+
+        StringBuilder usersStr= new StringBuilder("");
+        for (User user: results){
+           usersStr.append(user.toString()).append("\n");
+        }
+
+        Log.i("Users",usersStr.toString());
+
+        realm.commitTransaction();
     }
 
     public void insertPerson(String name, String lastname, int salary, int age){
