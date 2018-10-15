@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showPerson(){
+        Log.i("RealmInsert", "showPerson method begins");
         realm.beginTransaction();
 
         RealmResults<Person> results = realm.where(Person.class).findAll();
@@ -145,9 +146,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         realm.commitTransaction();
+        Log.i("RealmInsert", "showPerson method complated");
     }
 
     public void listViewItemPosition(){
+        Log.i("RealmInsert", "listViewItemPosition method begins");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -156,9 +159,11 @@ public class MainActivity extends AppCompatActivity {
                 open(position);
             }
         });
+        Log.i("RealmInsert", "listViewItemPosition method complated");
     }
 
     public void delete(final int position){
+        Log.i("RealmInsert", "delete method begins" + position);
         final RealmResults<User> users = realm.where(User.class).findAll();
 
         Log.i("User List Size:", "" + users.size());
@@ -170,10 +175,12 @@ public class MainActivity extends AppCompatActivity {
                 user.deleteFromRealm();
             }
         });
+        Log.i("RealmInsert", "delete method complated");
     }
 
 
     public void open(final int position){
+        Log.i("RealmInsert", "open method begins");
         LayoutInflater inflater = getLayoutInflater();
 
         View view = inflater.inflate(R.layout.alertlayout, null);
@@ -197,5 +204,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
+
+        Log.i("RealmInsert", "open method complated");
     }
 }
