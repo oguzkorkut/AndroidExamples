@@ -1,8 +1,10 @@
 package com.okorkut.realminsert;
 
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
        listView = findViewById(R.id.listView);
 
-       listViewItemPosition();
+       //listViewItemPosition();
     }
 
     public void generateRealm(){
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 nameET.setText("");
                 usernameET.setText("");
                 passwordET.setText("");
+
+                listViewItemPosition();
             }
         }, new Realm.Transaction.OnError() {
             @Override
@@ -148,7 +152,50 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("Item Position", Integer.toString(position));
+                //delete(position);
+                open(position);
             }
         });
+    }
+
+    public void delete(final int position){
+        final RealmResults<User> users = realm.where(User.class).findAll();
+
+        Log.i("User List Size:", "" + users.size());
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                User user = users.get(position);
+                user.deleteFromRealm();
+            }
+        });
+    }
+
+
+    public void open(final int position){
+        LayoutInflater inflater = getLayoutInflater();
+
+        View view = inflater.inflate(R.layout.alertlayout, null);
+
+        Button yesBtn = view.findViewById(R.id.yes);
+        Button noBtn = view.findViewById(R.id.no);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setView(view);
+        alert.setCancelable(false);//boş tıklamada kapanmaz
+
+        final AlertDialog dialog = alert.create();
+
+        yesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete(position);
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
     }
 }
