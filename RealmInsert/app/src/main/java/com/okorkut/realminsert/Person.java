@@ -49,9 +49,9 @@ public class Person extends RealmObject {
         StringBuilder sb= new StringBuilder("");
 
         sb.append("name:").append(name).append("\n")
-                .append("lastname:").append(lastname).append("\n")
-                .append("salary").append(salary).append("\n")
-                .append("age:").append(age);
+            .append("lastname:").append(lastname).append("\n")
+            .append("salary:").append(salary).append("\n")
+            .append("age:").append(age);
 
         return sb.toString();
     }
