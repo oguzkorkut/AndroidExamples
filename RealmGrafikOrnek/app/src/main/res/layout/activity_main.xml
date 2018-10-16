@@ -14,13 +14,13 @@
        <EditText
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:text="Büyük Tansiyon Giriniz"
+           android:hint="Büyük Tansiyon Giriniz"
            android:id="@+id/buyukTansiyon"/>
 
        <EditText
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:text="Küçük Tansiyon Giriniz"
+           android:hint="Küçük Tansiyon Giriniz"
            android:id="@+id/kucukTansiyon"/>
 
        <Button
