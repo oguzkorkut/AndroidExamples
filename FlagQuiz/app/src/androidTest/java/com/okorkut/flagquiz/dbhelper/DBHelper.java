@@ -1,5 +1,6 @@
 package com.okorkut.flagquiz.dbhelper;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,15 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.okorkut.flagquiz.model.Question;
+import com.okorkut.flagquiz.model.Ranking;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
-import java.util.Queue;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void openDatabase(){
         String path = DB_PATH  + DB_NAME;
 
-        Log.i("DBHelper", " DB Path:" + path)
+        Log.i("DBHelper", " DB Path:" + path);
 
         database = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
     }
@@ -114,6 +114,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    //CRUD for table
     public List<Question> getAllQuestion(){
 
         List<Question>  questions = new ArrayList<Question>();
@@ -152,6 +153,53 @@ public class DBHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
 
+        db.close();
+
         return  questions;
+    }
+
+    //insert score to Ranking table
+    public void insertScore(int score){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("score",score);
+
+        db.insert("Ranking",null, contentValues);
+
+        db.close();
+    }
+
+    //get score and sort ranking
+    public List<Ranking> getRanking(){
+
+        List<Ranking> rankingList = new ArrayList<Ranking>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c;
+
+        try{
+            c = db.rawQuery("Select * from Ranking ORDER BY Score DESC;", null);
+            if(c==null){
+                return null;
+            }
+
+            do{
+                int id = c.getInt(c.getColumnIndex("Id"));
+                double score = c.getDouble(c.getColumnIndex("Score"));
+
+                Ranking ranking = new Ranking(id,score);
+                rankingList.add(ranking);
+            }while (c.moveToNext());
+            c.close();
+        }catch (Exception e){
+           Log.e("DBHelper Error", e.getMessage());
+           e.printStackTrace();
+        }
+
+        db.close();
+
+        return  rankingList;
     }
 }
