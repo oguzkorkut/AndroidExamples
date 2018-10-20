@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.okorkut.flagquiz.common.Common;
 import com.okorkut.flagquiz.model.Question;
 import com.okorkut.flagquiz.model.Ranking;
 
@@ -125,6 +126,64 @@ public class DBHelper extends SQLiteOpenHelper {
 
         try{
             c = db.rawQuery("select * from Question order by random()", null);
+
+            if (c == null){
+                return  null;
+            }
+
+            c.moveToFirst();
+
+            Question question = null;
+
+            do {
+
+                int id= c.getInt(c.getInt(c.getColumnIndex("id")));
+                String image = c.getString(c.getColumnIndex("iamge"));
+                String answerA = c.getString(c.getColumnIndex("AnswerA"));
+                String answerB = c.getString(c.getColumnIndex("answerB"));
+                String answerC = c.getString(c.getColumnIndex("answerC"));
+                String answerD = c.getString(c.getColumnIndex("answerD"));
+                String correctAnswer = c.getString(c.getColumnIndex("AnswerA"));
+
+                question = new Question(id, image, answerA, answerB, answerC,  answerD, correctAnswer);
+
+                questions.add(question);
+            } while (c.moveToNext());
+        }catch (Exception e){
+            Log.e("DBHelper Error", e.getMessage());
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return  questions;
+    }
+
+
+    //We need improve this function to optimize process from Playing
+    public List<Question> getQuestionMode(String mode){
+
+        List<Question>  questions = new ArrayList<Question>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor c;
+
+        int limit = 0;
+
+        if (mode.equalsIgnoreCase(Common.MODE.EASY.toString())){
+            limit = 30;
+        } else if (mode.equalsIgnoreCase(Common.MODE.MEDIUM.toString())){
+            limit = 50;
+        } else if (mode.equalsIgnoreCase(Common.MODE.HARD.toString())){
+            limit = 100;
+        } else if (mode.equalsIgnoreCase(Common.MODE.HARDEST.toString())){
+            limit = 200;
+        }
+
+        try{
+            String sql = String.format("select * from Question order by random() LIMIT %d ", limit);
+            c = db.rawQuery(sql, null);
 
             if (c == null){
                 return  null;
