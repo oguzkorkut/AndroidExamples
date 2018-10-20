@@ -139,10 +139,13 @@ public class Playing extends AppCompatActivity implements View.OnClickListener {
             if (clickedBtn.getText().toString().equalsIgnoreCase(questions.get(index).getCorrectAnswer())){
                 score = + 10;
                 correctAnswer++;showQuestion(++index);
+
             }
         }else{
-            showQuestion(++index);
+            //showQuestion(++index);
         }
+
+        showQuestion(++index);
 
         txtScore.setText(String.format("%d",score));
     }
