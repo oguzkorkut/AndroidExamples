@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
 
         try{
-            dbHelper.createDatabase();
+            dbHelper.createDataBase();
 
         }catch (Exception e){
             Log.e("MainActivity Erro", e.getMessage());

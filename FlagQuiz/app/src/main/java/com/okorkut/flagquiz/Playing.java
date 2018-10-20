@@ -1,8 +1,10 @@
 package com.okorkut.flagquiz;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -14,7 +16,7 @@ import com.okorkut.flagquiz.model.Question;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Playing extends AppCompatActivity {
+public class Playing extends AppCompatActivity implements View.OnClickListener {
 
     final static long INTERVAL = 1000;// 1 sn
     final static long TIMEOUT = 7000; // 7 sn
@@ -27,7 +29,7 @@ public class Playing extends AppCompatActivity {
     DBHelper dbHelper;
 
     int score = 0, thisQuestion, totalQuestion, correctAnswer;
-    final int index = 0;
+
     String mode="";
 
     //Control
@@ -35,6 +37,8 @@ public class Playing extends AppCompatActivity {
     ImageView flag;
     Button btnA, btnB, btnC, btnD;
     TextView txtScore, txtQuestion;
+
+    int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,11 @@ public class Playing extends AppCompatActivity {
         btnC = findViewById(R.id.btnAnswerC);
         btnD = findViewById(R.id.btnAnswerD);
 
+        btnA.setOnClickListener(this);
+        btnB.setOnClickListener(this);
+        btnC.setOnClickListener(this);
+        btnD.setOnClickListener(this);
+
     }
 
     @Override
@@ -84,11 +93,59 @@ public class Playing extends AppCompatActivity {
             }
         };
 
-        showQuestion();
+        showQuestion(index);
     }
 
-    public void showQuestion(){
+    public void showQuestion(int i){
+
+        if (index < totalQuestion){
+            thisQuestion++;
+            txtQuestion.setText(String.format("%d/%d",thisQuestion,totalQuestion));
+            progressBar.setProgress(0);
+            progressBarValue =0;
+
+            int flagId = this.getResources().getIdentifier(questions.get(i).getImage().toLowerCase(),"drawable",getPackageName());
+
+            flag.setImageResource(flagId);
+            btnA.setText(questions.get(i).getAnswerA());
+            btnB.setText(questions.get(i).getAnswerB());
+            btnC.setText(questions.get(i).getAnswerC());
+            btnD.setText(questions.get(i).getAnswerD());
+
+            mCountDown.start();
+        } else {
+            Intent intent = new Intent(this, Done.class);
+            Bundle data = new Bundle();
+            data.putInt("SCORE", score);
+            data.putInt("TOTAL", totalQuestion);
+            data.putInt("CORRECT", correctAnswer);
+
+            intent.putExtras(data);
+
+            startActivity(intent);
+
+            finish();
+        }
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+        mCountDown.cancel();
+
+        if (index < totalQuestion){
+            Button clickedBtn = (Button)v;
+            if (clickedBtn.getText().toString().equalsIgnoreCase(questions.get(index).getCorrectAnswer())){
+                score = + 10;
+                correctAnswer++;showQuestion(++index);
+            }
+        }else{
+            showQuestion(++index);
+        }
+
+        txtScore.setText(String.format("%d",score));
+    }
 }
+
+
