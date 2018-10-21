@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_panel"
     tools:context=".Playing">
 
 
@@ -81,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:background="#ff8a80"
+                    android:background="@drawable/background_btn"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="Answer A"
                     android:textColor="#FFFFFF"
@@ -94,7 +95,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:background="#ff8a80"
+                    android:background="@drawable/background_btn"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="Answer A"
                     android:textColor="#FFFFFF"
@@ -107,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:background="#ff8a80"
+                    android:background="@drawable/background_btn"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="Answer A"
                     android:textColor="#FFFFFF"
@@ -123,7 +124,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    android:background="#ff8a80"
+                    android:background="@drawable/background_btn"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="Answer A"
                     android:textColor="#FFFFFF"
