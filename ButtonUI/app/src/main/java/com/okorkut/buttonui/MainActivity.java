@@ -1,9 +1,12 @@
 package com.okorkut.buttonui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.spark.submitbutton.SubmitButton;
 
 import br.com.bloder.magic.view.MagicButton;
 
@@ -46,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Github", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        SubmitButton sb = findViewById(R.id.spark_btn);
+        sb.setOnClickListener(new View.OnClickListener() {
+            public static final String TAG = "onclick";
+
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: Submit");
             }
         });
     }
