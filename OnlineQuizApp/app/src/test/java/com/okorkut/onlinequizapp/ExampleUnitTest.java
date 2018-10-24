@@ -1,4 +1,4 @@
-package com.okorkut.quizapp;
+package com.okorkut.onlinequizapp;
 
 import org.junit.Test;
 

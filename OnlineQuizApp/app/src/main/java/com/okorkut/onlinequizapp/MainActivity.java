@@ -1,4 +1,4 @@
-package com.okorkut.quizapp;
+package com.okorkut.onlinequizapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
