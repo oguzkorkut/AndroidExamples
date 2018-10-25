@@ -96,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
         View sign_up_layout = inflater.inflate(R.layout.sign_up_layout, null);
 
 
-        edtNewUser = findViewById(R.id.edtNewUserName);
-        edtNewPassword = findViewById(R.id.edtNewPassword);
-        edtNewEmail = findViewById(R.id.edtNewEmail);
+        edtNewUser = sign_up_layout.findViewById(R.id.edtNewUserName);
+        edtNewPassword = sign_up_layout.findViewById(R.id.edtNewPassword);
+        edtNewEmail = sign_up_layout.findViewById(R.id.edtNewEmail);
 
         alertDialog.setView(sign_up_layout);
         alertDialog.setIcon(R.drawable.ic_account_circle_black_24dp);
