@@ -1,6 +1,7 @@
 package com.okorkut.onlinequizapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -71,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
                         User login = dataSnapshot.child(user).getValue(User.class);
                         if(login.getPassword().equalsIgnoreCase(password)){
                             Toast.makeText(MainActivity.this,"Login ok!", Toast.LENGTH_SHORT).show();
+
+                            Intent homeActivity = new Intent(MainActivity.this, Home.class);
+
+                            startActivity(homeActivity);
+
+                            finish();
                         } else {
                             Toast.makeText(MainActivity.this,"Wrong password", Toast.LENGTH_SHORT).show();
                         }
