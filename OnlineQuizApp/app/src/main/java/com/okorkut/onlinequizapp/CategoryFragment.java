@@ -74,9 +74,10 @@ public class CategoryFragment extends Fragment {
                         Toast.makeText(getActivity(),String.format("%s|%s", adapter.getRef(position).getKey(),model.getName()),Toast.LENGTH_SHORT).show();
                     }
                 });
-                adapter.notifyDataSetChanged();
-                listCategory.setAdapter(adapter);
             }
         };
+
+        adapter.notifyDataSetChanged();
+        listCategory.setAdapter(adapter);
     }
 }
