@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,15 +39,20 @@ public class CategoryFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.i("APP LOG", "CategoryFragment -> onCreate begins");
         super.onCreate(savedInstanceState);
 
         database = FirebaseDatabase.getInstance();
         categories = database.getReference("Category");
+
+        Log.i("APP LOG", "CategoryFragment -> onCreate complated");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i("APP LOG", "CategoryFragment -> onCreateView begins");
+
         myFragment = inflater.inflate(R.layout.fragment_category, container, false);
 
         listCategory = myFragment.findViewById(R.id.listCategory);
@@ -57,10 +63,14 @@ public class CategoryFragment extends Fragment {
 
         loadCategories();
 
+        Log.i("APP LOG", "CategoryFragment -> onCreateView complated");
+
         return myFragment;
     }
 
     private void loadCategories() {
+
+        Log.i("APP LOG", "CategoryFragment -> loadCategories begins");
 
         adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(Category.class, R.layout.category_layout, CategoryViewHolder.class, categories) {
             @Override
@@ -79,5 +89,7 @@ public class CategoryFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
         listCategory.setAdapter(adapter);
+
+        Log.i("APP LOG", "CategoryFragment -> loadCategories complated");
     }
 }
