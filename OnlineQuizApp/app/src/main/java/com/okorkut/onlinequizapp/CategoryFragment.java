@@ -39,19 +39,19 @@ public class CategoryFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.i("APP LOG", "CategoryFragment -> onCreate begins");
+        Log.i("APP_LOG", "CategoryFragment -> onCreate begins");
         super.onCreate(savedInstanceState);
 
         database = FirebaseDatabase.getInstance();
         categories = database.getReference("Category");
 
-        Log.i("APP LOG", "CategoryFragment -> onCreate complated");
+        Log.i("APP_LOG", "CategoryFragment -> onCreate complated");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i("APP LOG", "CategoryFragment -> onCreateView begins");
+        Log.i("APP_LOG", "CategoryFragment -> onCreateView begins");
 
         myFragment = inflater.inflate(R.layout.fragment_category, container, false);
 
@@ -63,18 +63,20 @@ public class CategoryFragment extends Fragment {
 
         loadCategories();
 
-        Log.i("APP LOG", "CategoryFragment -> onCreateView complated");
+        Log.i("APP_LOG", "CategoryFragment -> onCreateView complated");
 
         return myFragment;
     }
 
     private void loadCategories() {
 
-        Log.i("APP LOG", "CategoryFragment -> loadCategories begins");
+        Log.i("APP_LOG", "CategoryFragment -> loadCategories begins");
 
         adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(Category.class, R.layout.category_layout, CategoryViewHolder.class, categories) {
             @Override
             protected void populateViewHolder(CategoryViewHolder viewHolder, final Category model, int position) {
+                Log.i("APP_LOG", "CategoryFragment -> loadCategories-FirebaseRecyclerAdapter begins");
+
                 viewHolder.category_name.setText(model.getName());
                 Picasso.with(getActivity()).load(model.getImage()).into(viewHolder.category_image);
 
@@ -84,12 +86,14 @@ public class CategoryFragment extends Fragment {
                         Toast.makeText(getActivity(),String.format("%s|%s", adapter.getRef(position).getKey(),model.getName()),Toast.LENGTH_SHORT).show();
                     }
                 });
+
+                Log.i("APP_LOG", "CategoryFragment -> loadCategories-FirebaseRecyclerAdapter complated");
             }
         };
 
         adapter.notifyDataSetChanged();
         listCategory.setAdapter(adapter);
 
-        Log.i("APP LOG", "CategoryFragment -> loadCategories complated");
+        Log.i("APP_LOG", "CategoryFragment -> loadCategories complated");
     }
 }

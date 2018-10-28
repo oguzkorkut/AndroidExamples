@@ -18,7 +18,7 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Log.i("APP LOG", "Home -> onCreate begins");
+        Log.i("APP_LOG", "Home -> onCreate begins");
 
 
         bottomNavigationView = findViewById(R.id.navigation);
@@ -27,7 +27,7 @@ public class Home extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                Log.i("APP LOG", "Home -> onNavigationItemSelected begins");
+                Log.i("APP_LOG", "Home -> onNavigationItemSelected begins");
 
                 Fragment selectedFragment = null;
 
@@ -44,22 +44,22 @@ public class Home extends AppCompatActivity {
                 transaction.replace(R.id.frame_layout, selectedFragment);
                 transaction.commit();
 
-                Log.i("APP LOG", "Home -> onNavigationItemSelected complated");
+                Log.i("APP_LOG", "Home -> onNavigationItemSelected complated");
                 return true;
             }
         });
         setDefaultFragment();
 
-        Log.i("APP LOG", "Home -> onCreate complated");
+        Log.i("APP_LOG", "Home -> onCreate complated");
     }
 
     private void setDefaultFragment() {
-        Log.i("APP LOG", "Home -> setDefaultFragment begins");
+        Log.i("APP_LOG", "Home -> setDefaultFragment begins");
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, CategoryFragment.newInstance());
         transaction.commit();
 
-        Log.i("APP LOG", "Home -> setDefaultFragment complated");
+        Log.i("APP_LOG", "Home -> setDefaultFragment complated");
     }
 }
