@@ -72,7 +72,12 @@ public class CategoryFragment extends Fragment {
 
         Log.i("APP_LOG", "CategoryFragment -> loadCategories begins");
 
-        adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(Category.class, R.layout.category_layout, CategoryViewHolder.class, categories) {
+        adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(
+                Category.class,
+                R.layout.category_layout,
+                CategoryViewHolder.class,
+                categories) {
+
             @Override
             protected void populateViewHolder(CategoryViewHolder viewHolder, final Category model, int position) {
                 Log.i("APP_LOG", "CategoryFragment -> loadCategories-FirebaseRecyclerAdapter begins");
