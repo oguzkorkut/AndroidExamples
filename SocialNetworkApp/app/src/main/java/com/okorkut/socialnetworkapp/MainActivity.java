@@ -1,4 +1,4 @@
-package com.okorkut.socialnetwork;
+package com.okorkut.socialnetworkapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

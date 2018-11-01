@@ -1,4 +1,4 @@
-package com.okorkut.socialnetwork;
+package com.okorkut.socialnetworkapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.okorkut.socialnetwork", appContext.getPackageName());
+        assertEquals("com.okorkut.socialnetworkapp", appContext.getPackageName());
     }
 }

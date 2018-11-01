@@ -1,4 +1,4 @@
-package com.okorkut.socialnetwork;
+package com.okorkut.socialnetworkapp;
 
 import org.junit.Test;
 
