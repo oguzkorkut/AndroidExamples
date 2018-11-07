@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -47,6 +48,17 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currrentUser = mAuth.getCurrentUser();
+
+        if(currrentUser != null){
+            sendUserToMainActivity();
+        }
     }
 
     private void createNewAccount() {
@@ -93,11 +105,18 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    private void sendUserToMainActivity() {
+        Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+
+        finish();
+    }
+
     private void sendUserToSetupActivity() {
 
         Intent setupIntent = new Intent(RegisterActivity.this,SetupActivity.class);
         setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
         startActivity(setupIntent);
 
         finish();
