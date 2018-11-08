@@ -18,7 +18,8 @@
             android:layout_height="200dp"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:src="@drawable/profile"/>
+            android:src="@drawable/profile"
+            android:onClick="profileOnClick"/>
 
         <LinearLayout
             android:layout_weight="1"

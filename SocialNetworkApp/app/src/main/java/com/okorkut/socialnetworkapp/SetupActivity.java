@@ -32,6 +32,8 @@ public class SetupActivity extends AppCompatActivity {
 
     String currentUserId;
 
+    final static int Gallery_Pick = 1;
+
     private ProgressBar loadingBar;
 
     @Override
@@ -108,5 +110,15 @@ public class SetupActivity extends AppCompatActivity {
         startActivity(mainIntent);
 
         finish();
+    }
+
+    public void profileClick(View view) {
+
+        Intent galleryIntent = new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, Gallery_Pick);
+
+
     }
 }
