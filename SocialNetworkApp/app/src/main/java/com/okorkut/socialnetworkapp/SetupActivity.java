@@ -112,7 +112,7 @@ public class SetupActivity extends AppCompatActivity {
         finish();
     }
 
-    public void profileClick(View view) {
+    public void profileOnClick(View view) {
 
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
