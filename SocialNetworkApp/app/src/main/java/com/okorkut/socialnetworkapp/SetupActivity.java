@@ -1,6 +1,5 @@
 package com.okorkut.socialnetworkapp;
 
-import android.app.usage.StorageStatsManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
-import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -140,9 +138,12 @@ public class SetupActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if(requestCode == RESULT_OK){
+
+                loadingBar.setVisibility(View.VISIBLE);
+
                 Uri resultUri = result.getUri();
 
-                final StorageReference filePath = userProfileImageRef.child(currentUserId + ".jpg");
+                StorageReference filePath = userProfileImageRef.child(currentUserId + ".jpg");
 
                 filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -150,10 +151,31 @@ public class SetupActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(SetupActivity.this, "Profile Image stored successfully to Firebase storage." ,Toast.LENGTH_SHORT).show();
 
-                            final String downloadUrl = task.getResult().getUploadSessionUri().toString();
+                            String downloadUri = task.getResult().getUploadSessionUri().toString();
+
+                            usersRef.child("profileimage").setValue(downloadUri).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(SetupActivity.this, "Profile Image stored to Firebase Database successfuly." ,Toast.LENGTH_SHORT).show();
+                                        loadingBar.setVisibility(View.GONE);
+
+                                        Intent selfIntent =  new Intent(SetupActivity.this, SetupActivity.class);
+                                        startActivity(selfIntent);
+                                    } else {
+                                        String message = task.getException().getMessage();
+                                        Toast.makeText(SetupActivity.this, "Error Occured: " + message ,Toast.LENGTH_SHORT).show();
+
+                                        loadingBar.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
                         }
                     }
                 });
+            } else {
+                Toast.makeText(this, "Error Occured: Image can be cropped. Try Again"  ,Toast.LENGTH_SHORT).show();
+                loadingBar.setVisibility(View.GONE);
             }
         }
     }
