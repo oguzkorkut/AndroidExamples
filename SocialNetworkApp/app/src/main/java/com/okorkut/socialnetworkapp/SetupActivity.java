@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -25,13 +24,11 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class SetupActivity extends AppCompatActivity {
 
     private EditText userNameET, fullNameET, countryNameET;
-    private Button saveInformationBtn;
-    private CircleImageView profileImg;
+    //private Button saveInformationBtn;
+    //private CircleImageView profileImg;
 
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
@@ -59,9 +56,9 @@ public class SetupActivity extends AppCompatActivity {
         userNameET = findViewById(R.id.setup_username);
         fullNameET = findViewById(R.id.setup_full_name);
         countryNameET = findViewById(R.id.setup_country_name);
-        saveInformationBtn = findViewById(R.id.setup_information_button);
+        //saveInformationBtn = findViewById(R.id.setup_information_button);
 
-        profileImg = findViewById(R.id.setup_profile_image);
+        //profileImg = findViewById(R.id.setup_profile_image);
 
         loadingBar = findViewById(R.id.setup_progressBar);
 
@@ -70,29 +67,29 @@ public class SetupActivity extends AppCompatActivity {
     public void saveAccountSetupInformation(View view){
 
         String username = userNameET.getText().toString();
-        String fullname = fullNameET.getText().toString();
+        String fName = fullNameET.getText().toString();
         String country = countryNameET.getText().toString();
 
         if (TextUtils.isEmpty(username)){
             Toast.makeText(this,"Please write your username", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(fullname)){
+        } else if (TextUtils.isEmpty(fName)){
             Toast.makeText(this,"Please write your full name", Toast.LENGTH_SHORT).show();
         } else if(TextUtils.isEmpty(country)){
             Toast.makeText(this,"Please write your country", Toast.LENGTH_SHORT).show();
         } else {
             loadingBar.setVisibility(View.VISIBLE);
 
-            HashMap userMap = new HashMap();
+            HashMap<String, Object> userMap = new HashMap<String, Object>();
 
             userMap.put("username", username);
-            userMap.put("fullname", fullname);
+            userMap.put("fullname", fName);
             userMap.put("country", country);
             userMap.put("status", "Hey there, i am using Poster Social Network, developers by 32");
             userMap.put("gender", "none");
             userMap.put("dob", "none");
             userMap.put("relationshipstatus", "none");
 
-            usersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+           /* usersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if(task.isSuccessful()){
@@ -109,7 +106,7 @@ public class SetupActivity extends AppCompatActivity {
                         Toast.makeText(SetupActivity.this, "Error Occured: " + message, Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            });*/
         }
     }
 
