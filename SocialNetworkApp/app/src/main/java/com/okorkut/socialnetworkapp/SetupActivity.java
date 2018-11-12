@@ -123,64 +123,86 @@ public class SetupActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == Gallery_Pick && resultCode == RESULT_OK && data != null){
+
+
+        if(requestCode==Gallery_Pick && resultCode==RESULT_OK && data!=null)
+        {
             Uri imageUri = data.getData();
 
-            CropImage.activity()
+            CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAspectRatio(1,1)
+                    .setMultiTouchEnabled(true)
                     .start(this);
+           /*CropImage.activity(imageUri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1, 1)
+                    .start(this);
+
+             CropImage.activity(imageUri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setMultiTouchEnabled(true)
+                    .start(this);*/
         }
 
-        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
+      /*  CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);*/
+
+
+        if(requestCode==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
-            if(requestCode == RESULT_OK){
+            if(requestCode == 203){
+                Uri resultUri = result.getUri();
 
                 loadingBar.setVisibility(View.VISIBLE);
-
-                Uri resultUri = result.getUri();
 
                 StorageReference filePath = userProfileImageRef.child(currentUserId + ".jpg");
 
                 filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(SetupActivity.this, "Profile Image stored successfully to Firebase storage." ,Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull final Task<UploadTask.TaskSnapshot> task)
+                    {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(SetupActivity.this, "Profile Image stored successfully to Firebase storage...", Toast.LENGTH_SHORT).show();
 
-                            String downloadUri = task.getResult().getUploadSessionUri().toString();
+                            final String downloadUrl = task.getResult().getUploadSessionUri().toString();
 
-                            usersRef.child("profileimage").setValue(downloadUri).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(SetupActivity.this, "Profile Image stored to Firebase Database successfuly." ,Toast.LENGTH_SHORT).show();
-                                        loadingBar.setVisibility(View.GONE);
+                            usersRef.child("profileimage").setValue(downloadUrl)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task)
+                                        {
+                                            if(task.isSuccessful()) {
+                                                Intent selfIntent = new Intent(SetupActivity.this, SetupActivity.class);
+                                                startActivity(selfIntent);
 
-                                        Intent selfIntent =  new Intent(SetupActivity.this, SetupActivity.class);
-                                        startActivity(selfIntent);
-                                    } else {
-                                        String message = task.getException().getMessage();
-
-                                        Log.d("ErrorAPP" , message);
-
-                                        Toast.makeText(SetupActivity.this, "Error Occured: " + message ,Toast.LENGTH_SHORT).show();
-
-                                        loadingBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
+                                                Toast.makeText(SetupActivity.this, "Profile Image stored to Firebase Database Successfully...", Toast.LENGTH_SHORT).show();
+                                                loadingBar.setVisibility(View.GONE);
+                                            } else {
+                                                String message = task.getException().getMessage();
+                                                Toast.makeText(SetupActivity.this, "Error Occured: " + message, Toast.LENGTH_SHORT).show();
+                                                loadingBar.setVisibility(View.GONE);
+                                            }
+                                        }
+                                    });
                         } else {
                             Log.d("ErrorAPP" , "isSuccessful false");
                         }
                     }
                 });
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+
+                Toast.makeText(this, "Error Occured:" + error  ,Toast.LENGTH_LONG).show();
+                loadingBar.setVisibility(View.GONE);
             } else {
-                Toast.makeText(this, "Error Occured: Image can be cropped. Try Again"  ,Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error Occured: Image can be cropped. Try Again. Code: " +requestCode+ " Error:" + result  ,Toast.LENGTH_LONG).show();
                 loadingBar.setVisibility(View.GONE);
             }
         }
+
     }
 
     private void sendUserToMainActivity() {
