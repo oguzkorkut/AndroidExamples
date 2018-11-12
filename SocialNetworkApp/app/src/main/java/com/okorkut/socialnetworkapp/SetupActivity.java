@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -89,7 +90,7 @@ public class SetupActivity extends AppCompatActivity {
             userMap.put("dob", "none");
             userMap.put("relationshipstatus", "none");
 
-           /* usersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+            usersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if(task.isSuccessful()){
@@ -106,7 +107,7 @@ public class SetupActivity extends AppCompatActivity {
                         Toast.makeText(SetupActivity.this, "Error Occured: " + message, Toast.LENGTH_SHORT).show();
                     }
                 }
-            });*/
+            });
         }
     }
 
@@ -161,12 +162,17 @@ public class SetupActivity extends AppCompatActivity {
                                         startActivity(selfIntent);
                                     } else {
                                         String message = task.getException().getMessage();
+
+                                        Log.d("ErrorAPP" , message);
+
                                         Toast.makeText(SetupActivity.this, "Error Occured: " + message ,Toast.LENGTH_SHORT).show();
 
                                         loadingBar.setVisibility(View.GONE);
                                     }
                                 }
                             });
+                        } else {
+                            Log.d("ErrorAPP" , "isSuccessful false");
                         }
                     }
                 });
